@@ -16,8 +16,10 @@ public class ReceiveRecordTest extends BaseTest{
     @Test
     public void testList(){
         try {
-            Map<String, Object>  map = receiveRecordService.listReceiveRecord(1,1,2,"");
-            OutputMessage.outputMap(map);
+
+            Map<String, Object>  res = receiveRecordService.listReceiveRecord(1,1,10,"content:201803+time:1521820800000-1521993600000");
+            List<Map<String,Object> > records =(List<Map<String, Object> >) res.get("records");
+            OutputMessage.outputListOfMap(records);
         }catch (Exception e){
             e.printStackTrace();
         }

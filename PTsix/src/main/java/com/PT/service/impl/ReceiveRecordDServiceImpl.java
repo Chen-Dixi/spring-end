@@ -41,9 +41,8 @@ public class ReceiveRecordDServiceImpl implements ReceiveRecordService{
         Map factors = new HashMap();
         if(queryCondition!=null && !"".equals(queryCondition)) { //有搜索条件时
             factors = QueryToMap.stringToMap(queryCondition);
-            if (factors.containsKey("tradedAt")) {
-                Date tradedAt = YkatCommonUtil.getDateFromMillis( (String) factors.get("tradedAt") );
-                factors.put("tradedAt",tradedAt);
+            if (factors.containsKey("time")) {
+                YkatCommonUtil.putFromAndToDate(factors, (String) factors.get("time"));
             }
         }
 

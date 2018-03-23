@@ -15,11 +15,11 @@
           inner join ykat_drivers drivers on orders.driver_id = drivers.id
           inner join ykat_stores stores on orders.store_id = stores.id
         where stores.user_id = #{map.userId,jdbcType=INTEGER} and setRecords.traded_at is not null
-        <if test="map.driverName != null and map.driverName != ''" >
-            and  drivers.driver_name like '%${map.driverName}%'
+        <if test="map.content != null and map.content != ''" >
+            and  (drivers.driver_name like '%${map.content}%' or setRecords.set_acc_id like '${map.content}%' )
         </if>
-        <if test="map.tradedAt != null ">
-            and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
+        <if test="map.fromDate != null and map.toDate != null ">
+            and setRecords.traded_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
         order by setRecords.traded_at desc
     </select>
@@ -29,8 +29,11 @@
         inner join ykat_drivers drivers on orders.driver_id = drivers.id
         inner join ykat_stores stores on orders.store_id = stores.id
         where stores.user_id = #{map.userId,jdbcType=INTEGER} and setRecords.traded_at is not null
-        <if test="map.tradedAt != null ">
-            and DATE(setRecords.traded_at) = #{map.tradedAt,jdbcType=TIMESTAMP}
+        <if test="map.content != null and map.content != ''" >
+            and  (drivers.driver_name like '%${map.content}%' or setRecords.set_acc_id like '${map.content}%' )
+        </if>
+        <if test="map.fromDate != null and map.toDate != null ">
+            and setRecords.traded_at BETWEEN #{map.fromDate,jdbcType=TIMESTAMP} and #{map.toDate,jdbcType=TIMESTAMP}
         </if>
     </select>
 </mapper>

@@ -127,7 +127,10 @@ public class DepositServiceImpl implements DepositService {
             throw new Exception("缺少银行卡号信息");
         }
 
+
         Integer bankcardPrimaryKey = ykatCommonUtilMapper.getBankcardPrimaryKeyByCardId(bankcardId);//获得主键
+
+
         if(bankcardId == null){
             throw new Exception("不存在的银行卡");
         }
